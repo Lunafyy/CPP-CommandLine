@@ -4,28 +4,19 @@
 #include "Command.h"
 #include "Settings.h"
 #include "CommandHandler.h"
-
+#include "SessionInfo.h"
 
 int main()
 {
-    DWORD usernameLen = UNLEN + 1;
-    char username[UNLEN+1];
-    
-    GetUserName(username, &usernameLen);
-
-    DWORD computerNameLen = UNCLEN + 1;
-    char computerName[UNCLEN + 1];
-
-    GetComputerName(computerName, &computerNameLen);
-
-    std::string currentDirectory = "C:\\Users\\" + std::string(username);
-
-    CONSOLE_PREFIX = CONSOLE_PREFIX.replace(CONSOLE_PREFIX.find("[username]"), 10, username);
-    CONSOLE_PREFIX = CONSOLE_PREFIX.replace(CONSOLE_PREFIX.find("[machine]"), 9, computerName);
-    CONSOLE_PREFIX = CONSOLE_PREFIX.replace(CONSOLE_PREFIX.find("[directory]"), 11, currentDirectory);
     while (true) {
         Command command;
-        std::cout << CONSOLE_PREFIX << " ";
+
+        std::string commandLinePrefix = CONSOLE_PREFIX;
+        commandLinePrefix = commandLinePrefix.replace(commandLinePrefix.find("[username]"), 10, getUsername());
+        commandLinePrefix = commandLinePrefix.replace(commandLinePrefix.find("[machine]"), 9, getComputerName());
+        commandLinePrefix = commandLinePrefix.replace(commandLinePrefix.find("[directory]"), 11, getCWD());
+
+        std::cout << commandLinePrefix << " ";
         std::getline(std::cin, command.origin);
         std::vector<std::string> tokens = Parse(command);
         Execute(tokens, command);
