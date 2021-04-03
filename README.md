@@ -4,7 +4,7 @@
 
 ## Todo List
 + Add `mkdir` ✅
-+ Add `rmdir`/`rd`
++ Add `rmdir`/`rd` ✅
 + Add `move`
 + Add `ls`
 + Add `ifconfig`/`ipconfig`
