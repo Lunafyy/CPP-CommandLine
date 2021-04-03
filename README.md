@@ -3,7 +3,7 @@
 > Written by Lunafy#0923. A C++ Noob..
 
 ## Todo List
-+ Add `mkdir`
++ Add `mkdir` ✅
 + Add `rmdir`/`rd`
 + Add `move`
 + Add `ls`
