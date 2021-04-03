@@ -6,9 +6,9 @@
 + Add `mkdir` ✅
 + Add `rmdir`/`rd` ✅
 + Add `move`
-+ Add `ls`
++ Add `ls` ✅
 + Add `ifconfig`/`ipconfig`
-+ Add `cls`
++ Add `cls` ✅
 + Add `hostname`
 + Add `color`
 + Add `pause`
