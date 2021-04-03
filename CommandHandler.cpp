@@ -69,7 +69,7 @@ void Execute(std::vector<std::string> tokens, Command cmd) {
 					setCWD(cwd);
 				}
 				else {
-					std::cout << "The system cannot find the path specified." << std::endl;
+					std::cout << COMMAND_CD_INVALID_DIRECTORY << std::endl;
 				}
 			}
 		}
@@ -77,8 +77,52 @@ void Execute(std::vector<std::string> tokens, Command cmd) {
 			std::cout << getCWD() << std::endl;
 		}
 	}
+	else if(cmd.executionCommand == COMMAND_MAKE_NEW_DIRECTORY) {
+		if (tokens.size() == 0) {
+			std::cout << COMMAND_INVALID_SYNTAX << std::endl;
+			return;
+		}
+		for (std::string token : tokens) {
+			std::string cwd = getCWD() + "\\" + token;
+			CreateDirectory(cwd.c_str(), NULL);
+		}
+		
+		
+	}
+	else if (cmd.executionCommand == COMMAND_REMOVE_DIRECTORY) {
+		if (tokens.size() == 0) {
+			std::cout << COMMAND_INVALID_SYNTAX << std::endl;
+			return;
+		}
+		for (std::string token : tokens) {
+			std::string cwd = getCWD() + "\\" + token;
+			RemoveDirectory(cwd.c_str());
+		}
+	}
+	else if (cmd.executionCommand == COMMAND_LIST_DIRECTORY) {
+		WIN32_FIND_DATAA data;
+		HANDLE hFind = INVALID_HANDLE_VALUE;
+		std::string scanPath = getCWD() + "\\*";
+
+		hFind = FindFirstFileA(scanPath.c_str(), &data);
+
+		if (hFind == INVALID_HANDLE_VALUE) {
+			std::cout << "Internal HANDLE Error" << std::endl;
+		}
+
+		while (FindNextFileA(hFind, &data) != 0) {
+			std::cout << std::string(data.cFileName) << " - " << data.nFileSizeLow << "B" << std::endl;
+		}
+
+		FindClose(hFind);
+	}
+	else if (cmd.executionCommand == COMMAND_CLEAR) {
+		system("cls");
+	}
 	else {
-		std::cout << "'" << cmd.executionCommand << "'" << " is not recognized as an internal or external command." << std::endl;
+		std::string unknownCommand = COMMAND_UNKNOWN;
+		unknownCommand = unknownCommand.replace(unknownCommand.find("[command]"), 9, cmd.executionCommand);
+		std::cout << unknownCommand << std::endl;
 	}
 	std::cout << std::endl;
 }
