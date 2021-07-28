@@ -1,6 +1,7 @@
 # C++ Command Prompt/Line
 
-> Written by Lunafy#0923. A C++ Noob..
+## Description
+This is a very simple, limited command line written in C++. I made this as I'm new to C++ and it would teach me a lot
 
 ## Todo List
 + Add `mkdir` ✅
